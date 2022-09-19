@@ -13,12 +13,14 @@ import {
     faClock,
     faBell,
     faCog,
+    faLineChart,
 } from "@fortawesome/free-solid-svg-icons";
 
 import tw from "twrnc";
 
 import Home from "./app/pages/Home";
 import Alarms from "./app/pages/Alarms";
+import Metrics from "./app/pages/Metrics";
 
 const Tab = createBottomTabNavigator();
 
@@ -34,9 +36,10 @@ export default function App() {
 
                             if (route.name === "Home") {
                                 iconName = faHome;
-                            }
-                            if (route.name === "Alarms") {
+                            } else if (route.name === "Alarms") {
                                 iconName = faClock;
+                            } else if (route.name === "Metrics") {
+                                iconName = faLineChart;
                             }
 
                             // You can return any component that you like here!
@@ -53,6 +56,7 @@ export default function App() {
                 >
                     <Tab.Screen name="Home" component={Home} />
                     <Tab.Screen name="Alarms" component={Alarms} />
+                    <Tab.Screen name="Metrics" component={Metrics} />
                 </Tab.Navigator>
             </NavigationContainer>
             <StatusBar style="light" />
