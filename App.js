@@ -18,6 +18,7 @@ import {
 
 import tw from "twrnc";
 
+import Login from "./app/pages/Login";
 import Home from "./app/pages/Home";
 import Alarms from "./app/pages/Alarms";
 import Metrics from "./app/pages/Metrics";
@@ -29,7 +30,7 @@ export default function App() {
         <SafeAreaProvider>
             <NavigationContainer>
                 <Tab.Navigator
-                    initialRouteName="Home"
+                    initialRouteName="Login"
                     screenOptions={({ route }) => ({
                         tabBarIcon: ({ focused, color, size }) => {
                             let iconName;
@@ -40,6 +41,8 @@ export default function App() {
                                 iconName = faClock;
                             } else if (route.name === "Metrics") {
                                 iconName = faLineChart;
+                            } else if (route.name === "Login") {
+                                iconName = faCog;
                             }
 
                             // You can return any component that you like here!
@@ -57,6 +60,7 @@ export default function App() {
                     <Tab.Screen name="Home" component={Home} />
                     <Tab.Screen name="Alarms" component={Alarms} />
                     <Tab.Screen name="Metrics" component={Metrics} />
+                    <Tab.Screen name="Login" component={Login} />
                 </Tab.Navigator>
             </NavigationContainer>
             <StatusBar style="light" />
