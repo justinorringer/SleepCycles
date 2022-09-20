@@ -1,16 +1,34 @@
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import tw from "twrnc";
+import PocketBase from "pocketbase";
+import { UserContext } from "../../App";
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const client = new PocketBase("https://sleep-cycles.codymitchell.dev");
+    const { user, setUser } = useContext(UserContext);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(email, password);
-        setError(`Email: ${email}\nPassword: ${password}`);
+        client.users.authViaEmail(email, password)
+            .then((response) => {
+                console.log(response);
+                const userState = {
+                    isLoggedIn: true,
+                    user: response.user,
+                    token: response.token,
+                };
+                
+                setUser(userState)
+                localStorage.setItem("user", JSON.stringify(userState));
+            })
+            .catch((error) => {
+                console.log(JSON.stringify(error));
+                setError(error.message);
+            });
     }
 
     return (
@@ -30,6 +48,7 @@ export default function Login() {
                 />
                 <TextInput
                     style={styles.input}
+                    secureTextEntry={true}
                     placeholder="Password"
                     placeholderTextColor={"#999"}
                     value={password}
