@@ -22,6 +22,7 @@ import Home from "./app/pages/Home";
 import Alarms from "./app/pages/Alarms";
 import Metrics from "./app/pages/Metrics";
 import Settings from "./app/pages/Settings";
+import SignUp from "./app/pages/SignUp";
 
 const Tab = createBottomTabNavigator();
 
