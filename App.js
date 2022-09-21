@@ -11,55 +11,89 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
     faHome,
     faClock,
-    faBell,
-    faCog,
     faLineChart,
+    faCog,
 } from "@fortawesome/free-solid-svg-icons";
 
 import tw from "twrnc";
 
+import Login from "./app/pages/Login";
 import Home from "./app/pages/Home";
 import Alarms from "./app/pages/Alarms";
 import Metrics from "./app/pages/Metrics";
+import Settings from "./app/pages/Settings";
 
 const Tab = createBottomTabNavigator();
 
+export const UserContext = React.createContext({
+    user: {},
+    setUser: () => {},
+});
+
 export default function App() {
+    const [user, setUser] = React.useState({
+        isLoggedIn: false,
+        user: null,
+        token: null,
+    });
+
+    const value = React.useMemo(
+        () => ({user, setUser}),
+        [user]
+    )
+
+    React.useEffect(() => {
+        const user = localStorage.getItem("user");
+        if (user) {
+            setUser(JSON.parse(user));
+        }
+    }, []);
+
     return (
-        <SafeAreaProvider>
-            <NavigationContainer>
-                <Tab.Navigator
-                    initialRouteName="Home"
-                    screenOptions={({ route }) => ({
-                        tabBarIcon: ({ focused, color, size }) => {
-                            let iconName;
+        <UserContext.Provider value={value}>
+            {user.isLoggedIn ? (
+                <SafeAreaProvider>
+                    <NavigationContainer>
+                        <Tab.Navigator
+                            initialRouteName="Login"
+                            screenOptions={({ route }) => ({
+                                tabBarIcon: ({ focused, color, size }) => {
+                                    let iconName;
 
-                            if (route.name === "Home") {
-                                iconName = faHome;
-                            } else if (route.name === "Alarms") {
-                                iconName = faClock;
-                            } else if (route.name === "Metrics") {
-                                iconName = faLineChart;
-                            }
+                                    if (route.name === "Home") {
+                                        iconName = faHome;
+                                    } else if (route.name === "Alarms") {
+                                        iconName = faClock;
+                                    } else if (route.name === "Metrics") {
+                                        iconName = faLineChart;
+                                    } else if (route.name === "Settings") {
+                                        iconName = faCog;
+                                    }
 
-                            // You can return any component that you like here!
-                            return (
-                                <FontAwesomeIcon
-                                    icon={iconName}
-                                    size={size}
-                                    color={color}
-                                />
-                            );
-                        },
-                        headerShown: false,
-                    })}
-                >
-                    <Tab.Screen name="Home" component={Home} />
-                    <Tab.Screen name="Alarms" component={Alarms} />
-                    <Tab.Screen name="Metrics" component={Metrics} />
-                </Tab.Navigator>
-            </NavigationContainer>
-            <StatusBar style="light" />
-        </SafeAreaProvider>
+                                    // You can return any component that you like here!
+                                    return (
+                                        <FontAwesomeIcon
+                                            icon={iconName}
+                                            size={size}
+                                            color={color}
+                                        />
+                                    );
+                                },
+                                headerShown: false,
+                            })}
+                        >
+                            <Tab.Screen name="Home" component={Home} />
+                            <Tab.Screen name="Alarms" component={Alarms} />
+                            <Tab.Screen name="Metrics" component={Metrics} />
+                            <Tab.Screen name="Settings" component={Settings} />
+                        </Tab.Navigator>
+                    </NavigationContainer>
+                    <StatusBar style="light" />
+                </SafeAreaProvider>
+            ) : (
+                <Login />
+            )
+            }
+        </UserContext.Provider>
     );
 }
