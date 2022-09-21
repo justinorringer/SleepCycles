@@ -12,10 +12,19 @@ const client = new PocketBase("https://sleep-cycles.codymitchell.dev");
 export default function Alarms() {
     const [alarms, setAlarms] = useState([]);
 
-    useEffect(() => {
+    const updateAlarms = async () => {
         client.records.getList("alarms", 1, 50).then((response) => {
             setAlarms(response.items);
         });
+    }
+
+    useEffect(() => {
+        updateAlarms();
+        client.realtime.subscribe('alarms', updateAlarms);
+
+        return () => {
+            client.realtime.unsubscribe();
+        }
     }, []);
 
     return (

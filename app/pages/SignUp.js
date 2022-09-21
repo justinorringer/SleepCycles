@@ -1,30 +1,25 @@
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import tw from "twrnc";
 import PocketBase from "pocketbase";
-import { UserContext } from "../../App";
 
-export default function Login({navigation}) {
+export default function SignUp({navigation}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [passwordConfirm, setPasswordConfirm] = useState("");
     const [error, setError] = useState("");
     const client = new PocketBase("https://sleep-cycles.codymitchell.dev");
-    const { user, setUser } = useContext(UserContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        client.users.authViaEmail(email, password)
+        client.users.create({
+            email: email,
+            password: password,
+            passwordConfirm: passwordConfirm,
+        })
             .then((response) => {
                 console.log(response);
-                const userState = {
-                    isLoggedIn: true,
-                    user: response.user,
-                    token: response.token,
-                };
-                
-                setUser(userState)
-                localStorage.setItem("user", JSON.stringify(userState));
-                navigation.navigate("Home");
+                navigation.navigate("Log-In");
             })
             .catch((error) => {
                 console.log(JSON.stringify(error));
@@ -32,17 +27,10 @@ export default function Login({navigation}) {
             });
     }
 
-    useEffect(() => {
-        if (user.isLoggedIn) {
-            navigation.navigate("Home");
-        }
-    }, [user]);
-
     return (
         <View style={styles.page}>
             <View style={styles.innerView}>
-                <Text style={styles.text}>Log In</Text>
-                <Text style={styles.subheading}>to continue with SleepCycles</Text>
+                <Text style={styles.text}>Sign Up</Text>
                 <Text style={styles.errorText}>{error || " "}</Text>
 
                 <TextInput
@@ -61,6 +49,14 @@ export default function Login({navigation}) {
                     value={password}
                     onChangeText={(text) => setPassword(text)}
                 />
+                <TextInput
+                    style={styles.input}
+                    secureTextEntry={true}
+                    placeholder="Confirm Password"
+                    placeholderTextColor={"#999"}
+                    value={passwordConfirm}
+                    onChangeText={(text) => setPasswordConfirm(text)}
+                />
                 <View style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
@@ -68,9 +64,9 @@ export default function Login({navigation}) {
                 }}>
                     <Button
                         color="transparent"
-                        title="Sign Up"
+                        title="Log In"
                         onPress={() => {
-                            navigation.navigate("Sign-Up");
+                            navigation.navigate("Log-In");
                         }}
                     />
                     <Button
