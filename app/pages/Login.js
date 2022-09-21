@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import tw from "twrnc";
 import PocketBase from "pocketbase";
 import { UserContext } from "../../App";
@@ -31,6 +31,12 @@ export default function Login({navigation}) {
                 setError(error.message);
             });
     }
+
+    useEffect(() => {
+        if (user.isLoggedIn) {
+            navigation.navigate("Home");
+        }
+    }, [user]);
 
     return (
         <View style={styles.page}>
