@@ -3,7 +3,7 @@ import { useState } from "react";
 import tw from "twrnc";
 import PocketBase from "pocketbase";
 
-export default function SignUp() {
+export default function SignUp({navigation}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -19,7 +19,7 @@ export default function SignUp() {
         })
             .then((response) => {
                 console.log(response);
-                window.location.reload();
+                navigation.navigate("Log-In");
             })
             .catch((error) => {
                 console.log(JSON.stringify(error));
@@ -66,7 +66,7 @@ export default function SignUp() {
                         color="transparent"
                         title="Log In"
                         onPress={() => {
-                            window.location.href = "/log-in";
+                            navigation.navigate("Log-In");
                         }}
                     />
                     <Button

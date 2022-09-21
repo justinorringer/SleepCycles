@@ -4,7 +4,7 @@ import tw from "twrnc";
 import PocketBase from "pocketbase";
 import { UserContext } from "../../App";
 
-export default function Login() {
+export default function Login({navigation}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -24,6 +24,7 @@ export default function Login() {
                 
                 setUser(userState)
                 localStorage.setItem("user", JSON.stringify(userState));
+                navigation.navigate("Home");
             })
             .catch((error) => {
                 console.log(JSON.stringify(error));
@@ -63,7 +64,7 @@ export default function Login() {
                         color="transparent"
                         title="Sign Up"
                         onPress={() => {
-                            window.location.href = "/sign-up";
+                            navigation.navigate("Sign-Up");
                         }}
                     />
                     <Button
