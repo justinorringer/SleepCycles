@@ -1,6 +1,6 @@
-import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import { View, Text, TextInput, Button } from "react-native";
 import { useState } from "react";
-import tw from "twrnc";
+import { styles } from "../../Style";
 import PocketBase from "pocketbase";
 
 export default function SignUp({navigation}) {
@@ -28,7 +28,7 @@ export default function SignUp({navigation}) {
     }
 
     return (
-        <View style={styles.page}>
+        <View style={styles.loginPage}>
             <View style={styles.innerView}>
                 <Text style={styles.text}>Sign Up</Text>
                 <Text style={styles.errorText}>{error || " "}</Text>
@@ -77,13 +77,4 @@ export default function SignUp({navigation}) {
             </View>
         </View>
     );
-}
-
-var styles = StyleSheet.create({
-    page: [tw`bg-indigo-900 h-full items-center justify-center`],
-    innerView: [tw`h-30 w-full content-center justify-center items-center`],
-    text: [tw`text-white text-2xl`],
-    subheading: [tw`text-white text-lg`],
-    errorText: [tw`text-red-500 text-xl`],
-    input: [tw`bg-white h-48 w-4/5 rounded mb-3 p-2 text-lg`],
-});
+};

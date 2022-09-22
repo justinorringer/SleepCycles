@@ -4,6 +4,8 @@ import tw from "twrnc";
 import PocketBase from "pocketbase";
 import { UserContext } from "../../App";
 
+import { styles } from "../../Style";
+
 export default function Login({navigation}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -24,22 +26,22 @@ export default function Login({navigation}) {
                 
                 setUser(userState)
                 localStorage.setItem("user", JSON.stringify(userState));
-                navigation.navigate("Home");
+                navigation.navigate("Dashboard");
             })
             .catch((error) => {
                 console.log(JSON.stringify(error));
                 setError(error.message);
             });
-    }
+    };
 
     useEffect(() => {
         if (user.isLoggedIn) {
-            navigation.navigate("Home");
+            navigation.navigate("Dashboard");
         }
     }, [user]);
 
     return (
-        <View style={styles.page}>
+        <View style={styles.loginPage}>
             <View style={styles.innerView}>
                 <Text style={styles.text}>Log In</Text>
                 <Text style={styles.subheading}>to continue with SleepCycles</Text>
@@ -81,13 +83,4 @@ export default function Login({navigation}) {
             </View>
         </View>
     );
-}
-
-var styles = StyleSheet.create({
-    page: [tw`bg-indigo-900 h-full items-center justify-center`],
-    innerView: [tw`h-30 w-full content-center justify-center items-center`],
-    text: [tw`text-white text-2xl`],
-    subheading: [tw`text-white text-lg`],
-    errorText: [tw`text-red-500 text-xl`],
-    input: [tw`bg-white h-48 w-4/5 rounded mb-3 p-2 text-lg`],
-});
+};

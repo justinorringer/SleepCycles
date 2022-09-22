@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Button } from "react-native";
-import tw from "twrnc";
+import { View, Text, Button } from "react-native";
+import { styles } from "../../Style";
 
 export default function Settings() {
     return (
@@ -16,10 +16,4 @@ export default function Settings() {
             </View>
         </View>
     );
-}
-
-var styles = StyleSheet.create({
-    page: [tw`bg-indigo-900 h-full`],
-    innerView: [tw`h-30 content-center justify-around items-center`],
-    text: [tw`text-white text-2xl`],
-});
+};

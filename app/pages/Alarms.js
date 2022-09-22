@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import PocketBase from "pocketbase";
 
 import Moment from "react-moment";
-import tw from "twrnc";
+import { styles } from "../../Style";
 
 const client = new PocketBase("https://sleep-cycles.codymitchell.dev");
 
@@ -28,8 +28,8 @@ export default function Alarms() {
     }, []);
 
     return (
-        <SafeAreaView style={[tw`h-full bg-indigo-900`]}>
-            <View style={[tw`p-5 text-white`]}>
+        <SafeAreaView style={styles.page}>
+            <View style={styles.innerView}>
                 <FlatList
                     data={alarms}
                     renderItem={({ item }) => <AlarmView alarm={item} />}
@@ -42,8 +42,10 @@ export default function Alarms() {
 
 function AlarmView({ alarm }) {
     return (
-        <View style={[tw`p-5`]}>
-            <Moment format="hh:mm a">{alarm.time}</Moment>
+        <View style={styles.alarmContainer}>
+            <Text style={styles.alarmTitle}>{alarm.name}</Text>
+            <Text style={styles.alarmTitle}><Moment format="hh:mm A">{alarm.time}</Moment></Text>
+            <Text style={[styles.alarmSubtitle]}><Moment format="MM-DD-YYYY">{alarm.time}</Moment></Text>
         </View>
     );
 }
