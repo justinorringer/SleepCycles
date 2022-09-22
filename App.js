@@ -16,16 +16,12 @@ import {
     faCog,
 } from "@fortawesome/free-solid-svg-icons";
 
-import tw from "twrnc";
-
 import Login from "./app/pages/Login";
 import Home from "./app/pages/Home";
 import Alarms from "./app/pages/Alarms";
 import Metrics from "./app/pages/Metrics";
 import Settings from "./app/pages/Settings";
 import SignUp from "./app/pages/SignUp";
-
-
 
 const Tab = createBottomTabNavigator();
 export const Stack = createNativeStackNavigator();
@@ -65,8 +61,8 @@ export default function App() {
                             options={{ headerShown: false }}
                         />
                         <Stack.Screen
-                            name="Home"
-                            component={HomeScreen}
+                            name="Dashboard"
+                            component={Dashboard}
                             options={{ headerShown: false }}
                         />
                         <Stack.Screen
@@ -82,7 +78,7 @@ export default function App() {
     );
 }
 
-const HomeScreen = () => {
+const Dashboard = () => {
     return (
         <Tab.Navigator
             initialRouteName="Login"
