@@ -1,9 +1,12 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { styles } from "../../Style";
-import tw from "twrnc";
 
 import { LinearGradient } from "expo-linear-gradient";
+
+import tw from "twrnc";
+import { styles } from "../../Style";
+
+import SleepFacts from "../assets/sleep-facts";
 
 export default function Home() {
     return (
@@ -43,16 +46,27 @@ export default function Home() {
                             />
                         </View>
 
-                        <View style={styles.sectionContainer}>
-                            <Text
-                                style={[styles.subheading, tw`content-center`]}
-                            >
+                        <View
+                            style={[
+                                styles.sectionContainer,
+                                {
+                                    flex: 1,
+                                },
+                            ]}
+                        >
+                            <Text style={[styles.subheading, tw`text-center`]}>
                                 Tip!
                             </Text>
-                            <Text style={styles.text}>
-                                The average adult takes 14 minutes to fall
-                                asleep.
-                            </Text>
+                            <SleepFacts
+                                styles={[
+                                    styles.text,
+                                    {
+                                        width: "80%",
+                                        textAlign: "center",
+                                        marginLeft: "10%",
+                                    },
+                                ]}
+                            />
                         </View>
                     </View>
                 </View>
@@ -80,5 +94,11 @@ var local = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         margin: 5,
+        height: 40,
+    },
+    timeBoxText: {
+        textAlign: "center",
+        color: "white",
+        fontSize: 15,
     },
 });

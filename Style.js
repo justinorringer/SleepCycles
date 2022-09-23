@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     innerView: [tw`w-full h-full items-center my-2`],
     text: [tw`text-white text-base`],
     heading: [tw`text-white text-2xl py-4`],
-    subheading: [tw`text-white text-lg`],
+    subheading: [tw`text-white text-lg opacity-100 underline`],
     errorText: [tw`text-red-500 text-xl mb-2`],
     input: [tw`bg-white w-full rounded mb-3 p-2 text-lg`],
     alarmContainer: [
@@ -29,5 +29,10 @@ export const styles = StyleSheet.create({
     alarmSubtitle: [tw`text-white text-sm`],
     featureImage: [tw`h-50 w-60 mt-12`],
     featureImageContainer: [tw`w-full h-60 items-center`],
-    bottomAlignedContainer: [tw``],
+    bottomAlignedContainer: [
+        {
+            position: "absolute",
+            bottom: 20,
+        },
+    ],
 });
