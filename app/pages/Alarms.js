@@ -16,15 +16,15 @@ export default function Alarms() {
         client.records.getList("alarms", 1, 50).then((response) => {
             setAlarms(response.items);
         });
-    }
+    };
 
     useEffect(() => {
         updateAlarms();
-        client.realtime.subscribe('alarms', updateAlarms);
+        client.realtime.subscribe("alarms", updateAlarms);
 
         return () => {
             client.realtime.unsubscribe();
-        }
+        };
     }, []);
 
     return (
@@ -44,8 +44,12 @@ function AlarmView({ alarm }) {
     return (
         <View style={styles.alarmContainer}>
             <Text style={styles.alarmTitle}>{alarm.name}</Text>
-            <Text style={styles.alarmTitle}><Moment format="hh:mm A">{alarm.time}</Moment></Text>
-            <Text style={[styles.alarmSubtitle]}><Moment format="MM-DD-YYYY">{alarm.time}</Moment></Text>
+            <Text style={styles.alarmTitle}>
+                <Moment format="hh:mm A">{alarm.time}</Moment>
+            </Text>
+            <Text style={[styles.alarmSubtitle]}>
+                <Moment format="MM-DD-YYYY">{alarm.time}</Moment>
+            </Text>
         </View>
     );
 }
