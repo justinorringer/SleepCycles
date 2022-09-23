@@ -5,6 +5,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import PocketBase from "pocketbase";
 
 import Moment from "react-moment";
+import { LinearGradient } from "expo-linear-gradient";
+
 import { styles } from "../../Style";
 import moment from "moment";
 const client = new PocketBase("https://sleep-cycles.codymitchell.dev");
@@ -23,11 +25,11 @@ export default function Alarms() {
             console.log(response);
             setAlarms(response.items);
         });
-    }
+    };
 
     const updateAlarm = async (id, alarm) => {
         client.records.update("alarms", id, alarm);
-    }
+    };
 
     useEffect(() => {
         updateAlarms();
@@ -35,13 +37,20 @@ export default function Alarms() {
 
     return (
         <SafeAreaView style={styles.page}>
-            <View style={styles.innerView}>
-                <FlatList
-                    data={alarms}
-                    renderItem={({ item }) => <AlarmView alarm={item} updateAlarm={updateAlarm} />}
-                    keyExtractor={(item) => item.id}
-                />
-            </View>
+            <LinearGradient
+                colors={["#5a589a", "#312e81"]}
+                style={styles.gradient}
+            >
+                <View style={styles.innerView}>
+                    <FlatList
+                        data={alarms}
+                        renderItem={({ item }) => (
+                            <AlarmView alarm={item} updateAlarm={updateAlarm} />
+                        )}
+                        keyExtractor={(item) => item.id}
+                    />
+                </View>
+            </LinearGradient>
         </SafeAreaView>
     );
 }
