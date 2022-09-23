@@ -12,6 +12,7 @@ import {
     faHome,
     faClock,
     faCog,
+    faUser,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Login from "./app/pages/Login";
@@ -25,7 +26,7 @@ export const Stack = createNativeStackNavigator();
 
 export const UserContext = React.createContext({
     user: {},
-    setUser: () => { },
+    setUser: () => {},
 });
 
 export default function App() {
@@ -35,10 +36,7 @@ export default function App() {
         token: null,
     });
 
-    const value = React.useMemo(
-        () => ({ user, setUser }),
-        [user]
-    )
+    const value = React.useMemo(() => ({ user, setUser }), [user]);
 
     React.useEffect(() => {
         const user = localStorage.getItem("user");
@@ -88,7 +86,7 @@ const Dashboard = () => {
                     } else if (route.name === "Alarms") {
                         iconName = faClock;
                     } else if (route.name === "Profile") {
-                        iconName = faCog;
+                        iconName = faUser;
                     }
 
                     // You can return any component that you like here!
@@ -107,5 +105,5 @@ const Dashboard = () => {
             <Tab.Screen name="Alarms" component={Alarms} />
             <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
-    )
-}
+    );
+};

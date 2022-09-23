@@ -4,9 +4,11 @@ import tw from "twrnc";
 import PocketBase from "pocketbase";
 import { UserContext } from "../../App";
 
+import { LinearGradient } from "expo-linear-gradient";
+
 import { styles } from "../../Style";
 
-export default function Login({navigation}) {
+export default function Login({ navigation }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -15,7 +17,8 @@ export default function Login({navigation}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        client.users.authViaEmail(email, password)
+        client.users
+            .authViaEmail(email, password)
             .then((response) => {
                 console.log(response);
                 const userState = {
@@ -23,8 +26,8 @@ export default function Login({navigation}) {
                     user: response.user,
                     token: response.token,
                 };
-                
-                setUser(userState)
+
+                setUser(userState);
                 localStorage.setItem("user", JSON.stringify(userState));
                 navigation.navigate("Dashboard");
             })
@@ -42,45 +45,50 @@ export default function Login({navigation}) {
 
     return (
         <View style={styles.loginPage}>
-            <View style={styles.innerView}>
-                <Text style={styles.text}>Log In</Text>
-                <Text style={styles.subheading}>to continue with SleepCycles</Text>
-                <Text style={styles.errorText}>{error || " "}</Text>
+            <LinearGradient
+                colors={["#5a589a", "#312e81"]}
+                style={styles.gradient}
+            >
+                <View style={styles.innerView}>
+                    <Text style={styles.text}>Log In</Text>
+                    <Text style={styles.subheading}>
+                        to continue with SleepCycles
+                    </Text>
+                    <Text style={styles.errorText}>{error || " "}</Text>
 
-                <TextInput
-                    style={styles.input}
-                    placeholder="Email"
-                    placeholderTextColor={"#999"}
-                    value={email}
-                    onChangeText={(text) => setEmail(text)}
-
-                />
-                <TextInput
-                    style={styles.input}
-                    secureTextEntry={true}
-                    placeholder="Password"
-                    placeholderTextColor={"#999"}
-                    value={password}
-                    onChangeText={(text) => setPassword(text)}
-                />
-                <View style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    width: "80%",
-                }}>
-                    <Button
-                        color="transparent"
-                        title="Sign Up"
-                        onPress={() => {
-                            navigation.navigate("Sign-Up");
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Email"
+                        placeholderTextColor={"#999"}
+                        value={email}
+                        onChangeText={(text) => setEmail(text)}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        secureTextEntry={true}
+                        placeholder="Password"
+                        placeholderTextColor={"#999"}
+                        value={password}
+                        onChangeText={(text) => setPassword(text)}
+                    />
+                    <View
+                        style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            width: "80%",
                         }}
-                    />
-                    <Button
-                        title="Submit"
-                        onPress={handleSubmit}
-                    />
+                    >
+                        <Button
+                            color="transparent"
+                            title="Sign Up"
+                            onPress={() => {
+                                navigation.navigate("Sign-Up");
+                            }}
+                        />
+                        <Button title="Submit" onPress={handleSubmit} />
+                    </View>
                 </View>
-            </View>
+            </LinearGradient>
         </View>
     );
-};
+}
