@@ -1,7 +1,7 @@
 import { View, Text, Button } from "react-native";
 import { styles } from "../../Style";
 
-export default function Settings() {
+export default function Profile() {
     return (
         <View style={styles.page}>
             <View style={styles.innerView}>
