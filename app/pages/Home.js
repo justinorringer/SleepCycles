@@ -1,4 +1,5 @@
 import { View, Text, Image, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../../Style";
 import tw from "twrnc";
 
@@ -6,7 +7,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 export default function Home() {
     return (
-        <View style={styles.page}>
+        <SafeAreaView style={styles.page}>
             <LinearGradient
                 colors={["#5a589a", "#312e81"]}
                 style={styles.gradient}
@@ -56,7 +57,7 @@ export default function Home() {
                     </View>
                 </View>
             </LinearGradient>
-        </View>
+        </SafeAreaView>
     );
 }
 

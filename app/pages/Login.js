@@ -3,6 +3,7 @@ import { useState, useContext, useEffect } from "react";
 import tw from "twrnc";
 import PocketBase from "pocketbase";
 import { UserContext } from "../../App";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -27,8 +28,8 @@ export default function Login({ navigation }) {
                     user: response.user,
                     token: response.token,
                 };
-                
-                setUser(userState)
+
+                setUser(userState);
                 AsyncStorage.setItem("user", JSON.stringify(userState));
                 navigation.navigate("Dashboard");
             })
@@ -45,7 +46,7 @@ export default function Login({ navigation }) {
     }, [user]);
 
     return (
-        <View style={styles.loginPage}>
+        <SafeAreaView style={styles.loginPage}>
             <LinearGradient
                 colors={["#5a589a", "#312e81"]}
                 style={styles.gradient}
@@ -90,6 +91,6 @@ export default function Login({ navigation }) {
                     </View>
                 </View>
             </LinearGradient>
-        </View>
+        </SafeAreaView>
     );
 }

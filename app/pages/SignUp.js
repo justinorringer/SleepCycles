@@ -1,6 +1,7 @@
 import { View, Text, TextInput, Button } from "react-native";
 import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import PocketBase from "pocketbase";
 
@@ -32,7 +33,7 @@ export default function SignUp({ navigation }) {
     };
 
     return (
-        <View style={styles.loginPage}>
+        <SafeAreaView style={styles.loginPage}>
             <LinearGradient
                 colors={["#5a589a", "#312e81"]}
                 style={styles.gradient}
@@ -82,6 +83,6 @@ export default function SignUp({ navigation }) {
                     </View>
                 </View>
             </LinearGradient>
-        </View>
+        </SafeAreaView>
     );
 }
