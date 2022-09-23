@@ -1,7 +1,8 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, Text, Button } from "react-native";
 import { styles } from "../../Style";
 
-export default function Profile() {
+export default function Profile({navigation}) {
     return (
         <View style={styles.page}>
             <View style={styles.innerView}>
@@ -9,8 +10,8 @@ export default function Profile() {
                 <Button
                     title="Log Out"
                     onPress={() => {
-                        localStorage.removeItem("user");
-                        window.location.reload();
+                        AsyncStorage.removeItem("user");
+                        navigation.navigate("Log-In");
                     }}
                 />
             </View>
