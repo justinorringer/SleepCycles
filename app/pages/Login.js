@@ -5,6 +5,7 @@ import PocketBase from "pocketbase";
 import { UserContext } from "../../App";
 
 import { styles } from "../../Style";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Login({navigation}) {
     const [email, setEmail] = useState("");
@@ -25,7 +26,7 @@ export default function Login({navigation}) {
                 };
                 
                 setUser(userState)
-                localStorage.setItem("user", JSON.stringify(userState));
+                AsyncStorage.setItem("user", JSON.stringify(userState));
                 navigation.navigate("Dashboard");
             })
             .catch((error) => {
