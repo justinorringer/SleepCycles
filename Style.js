@@ -11,12 +11,16 @@ export const styles = StyleSheet.create({
     subheading: [tw`text-white text-lg`],
     errorText: [tw`text-red-500 text-xl mb-2`],
     input: [tw`bg-white w-full rounded mb-3 p-2 text-lg`],
-    alarmContainer: [tw`bg-black rounded-lg p-3 text-lg mb-1 opacity-60 w-100 border-solid border-2 border-gray-700`],
-    alarmInnerContainer: [{
-        flexDirection: "row",
-        justifyContent: "space-between",
-        width: "100%",
-    }],
+    alarmContainer: [
+        tw`bg-black rounded-lg p-3 text-lg mb-1 w-95 border-solid border-2 border-gray-700`,
+    ],
+    alarmInnerContainer: [
+        {
+            flexDirection: "row",
+            justifyContent: "space-between",
+            width: "100%",
+        },
+    ],
     alarmTitle: [tw`text-white text-xl`],
     alarmSubtitle: [tw`text-white text-sm`],
 });
