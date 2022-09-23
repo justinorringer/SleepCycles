@@ -14,10 +14,13 @@ export const styles = StyleSheet.create({
     heading: [tw`text-white text-2xl py-4 drop-shadow-2xl`],
     subheading: [tw`text-white text-lg`],
     errorText: [tw`text-red-500 text-xl mb-2`],
-    input: [tw`bg-white w-4/5 rounded mb-3 p-2 text-lg`],
-    alarmContainer: [
-        tw`bg-slate-900 rounded-lg p-3 text-lg mb-1 opacity-75 w-95 border-solid border-white border`,
-    ],
+    input: [tw`bg-white w-full rounded mb-3 p-2 text-lg`],
+    alarmContainer: [tw`bg-black rounded-lg p-3 text-lg mb-1 opacity-60 w-100 border-solid border-2 border-gray-700`],
+    alarmInnerContainer: [{
+        flexDirection: "row",
+        justifyContent: "space-between",
+        width: "100%",
+    }],
     alarmTitle: [tw`text-white text-xl`],
     alarmSubtitle: [tw`text-white text-sm`],
     featureImage: [tw`h-50 w-60 mt-12`],
