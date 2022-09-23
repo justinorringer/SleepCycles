@@ -14,13 +14,13 @@ import {
     faCog,
     faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Login from "./app/pages/Login";
 import Home from "./app/pages/Home";
 import Alarms from "./app/pages/Alarms";
 import Profile from "./app/pages/Profile";
 import SignUp from "./app/pages/SignUp";
-
 const Tab = createBottomTabNavigator();
 export const Stack = createNativeStackNavigator();
 
@@ -39,9 +39,9 @@ export default function App() {
     const value = React.useMemo(() => ({ user, setUser }), [user]);
 
     React.useEffect(() => {
-        const user = localStorage.getItem("user");
+        const user = AsyncStorage.getItem("user");
         if (user) {
-            setUser(JSON.parse(user));
+            setUser(user);
         }
     }, []);
 

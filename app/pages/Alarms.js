@@ -10,12 +10,19 @@ import { LinearGradient } from "expo-linear-gradient";
 import { styles } from "../../Style";
 import moment from "moment";
 const client = new PocketBase("https://sleep-cycles.codymitchell.dev");
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Alarms() {
     const [alarms, setAlarms] = useState([]);
 
     const updateAlarms = async () => {
-        client.records.getList("alarms", 1, 50).then((response) => {
+        const localUser = await AsyncStorage.getItem("user");
+        const { user } = JSON.parse(localUser);
+        console.log(user);
+        client.records.getList("alarms", 1, 50, {
+            filter: `user='${user.id}'`,
+        }).then((response) => {
+            console.log(response);
             setAlarms(response.items);
         });
     };
@@ -26,11 +33,6 @@ export default function Alarms() {
 
     useEffect(() => {
         updateAlarms();
-        client.realtime.subscribe("alarms", updateAlarms);
-
-        return () => {
-            client.realtime.unsubscribe();
-        };
     }, []);
 
     return (
@@ -61,45 +63,29 @@ function AlarmView({ alarm, updateAlarm }) {
             <View style={styles.alarmInnerContainer}>
                 <View>
                     <Text style={styles.alarmTitle}>{alarm.name}</Text>
-                    <Text style={styles.alarmSubtitle}>
-                        <Moment format="hh:mm A">{alarm.time}</Moment>
-                    </Text>
+                    <Text style={styles.alarmSubtitle}>Hello</Text>
                 </View>
                 <View>
-                    <Text style={[styles.alarmSubtitle]}>
-                        <Moment format="ddd MM-DD-YYYY">{alarm.time}</Moment>
+                    <Text style={styles.alarmTitle}>
+                        {moment(alarm.time).format("h:mm A")}
                     </Text>
-                    <Button
-                        onPress={() => {
-                            setExpanded(!expanded);
-                        }}
-                    />
+                    <Button title="" onPress={() => {
+                        setExpanded(!expanded);
+                    }} />
                 </View>
             </View>
-            {expanded && (
-                <View style={styles.alarmExpandingContainer}>
-                    <DateTimePicker
-                        defaultValue={moment(alarm.time).format(
-                            "YYYY-MM-DDTkk:mm"
-                        )}
-                        onChange={(e) => {
-                            const newTime = moment(
-                                e.target.value
-                            ).toISOString();
-                            updateAlarm(alarm.id, { time: newTime });
-                        }}
-                    />
-                    <Text style={styles.alarmSubtitle}>{alarm.recurring}</Text>
-                </View>
-            )}
+            {expanded && <View style={styles.alarmExpandingContainer}>
+                <Text style={styles.alarmSubtitle}>{alarm.recurring}</Text>
+            </View>}
         </View>
     );
 }
 
 function DateTimePicker({ defaultValue, onChange }) {
-    return React.createElement("input", {
-        type: "datetime-local",
+
+    return React.createElement('input', {
+        type: 'datetime-local',
         defaultValue: defaultValue,
         onInput: onChange,
-    });
+    })
 }

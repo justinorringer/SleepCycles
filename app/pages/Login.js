@@ -7,6 +7,7 @@ import { UserContext } from "../../App";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { styles } from "../../Style";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Login({ navigation }) {
     const [email, setEmail] = useState("");
@@ -26,9 +27,9 @@ export default function Login({ navigation }) {
                     user: response.user,
                     token: response.token,
                 };
-
-                setUser(userState);
-                localStorage.setItem("user", JSON.stringify(userState));
+                
+                setUser(userState)
+                AsyncStorage.setItem("user", JSON.stringify(userState));
                 navigation.navigate("Dashboard");
             })
             .catch((error) => {
