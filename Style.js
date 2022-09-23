@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     errorText: [tw`text-red-500 text-xl mb-2`],
     input: [tw`bg-white w-full rounded mb-3 p-2 text-lg`],
     alarmContainer: [
-        tw`bg-black rounded-lg p-3 text-lg mb-1 opacity-60 w-95 border-solid border-2 border-gray-700`,
+        tw`bg-black rounded-lg p-3 text-lg mb-1 w-95 border-solid border-2 border-gray-700`,
     ],
     alarmInnerContainer: [
         {
