@@ -13,7 +13,7 @@ export default function Profile({ navigation }) {
                 style={styles.gradient}
             >
                 <View style={styles.innerView}>
-                    <Text style={styles.text}>Settings</Text>
+                    <Text style={styles.heading}>Profile</Text>
                     <Button
                         title="Log Out"
                         onPress={() => {
