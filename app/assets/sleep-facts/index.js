@@ -14,4 +14,7 @@ var facts = [
     "Pandas sleep 10-16 hours a day.",
     "Pandas don't hibernate because they can't stop eating.",
     "A work out a day keeps the mean panda away.",
+    "Getting sunlight in the morning can help you sleep better at night.",
+    "Sleeping in on the weekends isn't good for you.",
+    "Pandas sleep in on the weekends anyway.",
 ];

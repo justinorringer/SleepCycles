@@ -42,8 +42,16 @@ export default function Alarms() {
     const addAlarm = async () => {
         const localUser = await AsyncStorage.getItem("user");
         const { user } = JSON.parse(localUser);
+
+        // Defaulting to the next day at 9 AM
         client.records.create("alarms", {
-            time: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+            time: moment()
+                .add(1, "day")
+                .hour(9)
+                .minute(0)
+                .second(0)
+                .utc()
+                .format("YYYY-MM-DDTHH:mm:ss"),
             user: user.id,
             name: newAlarmName,
         });
@@ -117,7 +125,10 @@ function AlarmView({ alarm, updateAlarm, deleteAlarm }) {
                 </View>
                 <View>
                     <Text style={styles.alarmTitle}>
-                        {moment(alarm.time).format("MM/DD/YY h:mm A")}
+                        {moment
+                            .utc(alarm.time)
+                            .local()
+                            .format("MM/DD/YY h:mm A")}
                     </Text>
                 </View>
             </View>
