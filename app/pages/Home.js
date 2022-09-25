@@ -1,5 +1,6 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
+import { useIsFocused } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { LinearGradient } from "expo-linear-gradient";
@@ -19,15 +20,21 @@ export default function Home() {
     const [recentAlarm, setRecentAlarm] = useState(null);
     const [recommended, setRecommended] = useState([]);
 
+    const isFocused = useIsFocused();
+
     const updateRecentAlarm = async () => {
         const localUser = await AsyncStorage.getItem("user");
         const { user } = JSON.parse(localUser);
 
         client.records
             .getList("alarms", 1, 1, {
-                filter: `user='${user.id}' && time>'${moment().format(
-                    "YYYY-MM-DD"
-                )}' && time<'${moment().add(2, "day").format("YYYY-MM-DD")}'`,
+                filter: `user='${user.id}' && time>'${moment()
+                    .utc()
+                    .format("YYYY-MM-DD")}' && time<'${moment()
+                    .add(2, "day")
+                    .utc()
+                    .format("YYYY-MM-DD")}'`,
+                sort: "time",
             })
             .then((response) => {
                 if (response.items.length > 0) {
@@ -63,6 +70,10 @@ export default function Home() {
     useEffect(() => {
         updateRecentAlarm();
     }, []);
+
+    useEffect(() => {
+        updateRecentAlarm();
+    }, [isFocused]);
 
     return (
         <SafeAreaView style={styles.page}>
