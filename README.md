@@ -14,6 +14,7 @@ This is a React native app that gives alarm and sleep suggestions for the user o
 > [Contributions](#Contributions)
 
 ## License and Code of Conduct
+Please refer to the Code_of_Conduct.md for more information.
 
 ## Getting Started
 
